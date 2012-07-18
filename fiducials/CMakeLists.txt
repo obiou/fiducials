@@ -31,6 +31,7 @@ LIST(APPEND USER_INC  "${OPENGL_INCLUDE_DIR};${Boost_INCLUDE_DIRS};${CMAKE_CURRE
 
 # git://github.com/stevenlovegrove/Sophus.git
 FIND_PACKAGE(Sophus REQUIRED)
+message( STATUS "sophus: "  ${Sophus_LIBRARIES} )
 LIST(APPEND LINK_LIBS ${Sophus_LIBRARIES} )
 LIST(APPEND USER_INC  ${Sophus_INCLUDE_DIR} )
 LIST(APPEND LIB_DIRS  ${Sophus_LIBRARY_DIRS} )
@@ -48,6 +49,10 @@ LINK_LIBRARIES(${LINK_LIBS})
 LINK_DIRECTORIES(${LIB_DIRS})
 
 ADD_LIBRARY(${LIBRARY_NAME} SHARED ${SOURCES})
+
+##############################################################################
+# Get full library name
+GET_TARGET_PROPERTY( FULL_LIBRARY_NAME ${LIBRARY_NAME} LOCATION )
 
 # Export config file for easy inclusion into other projects: FIND_PACKAGE( Fiducials )
 CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/FiducialsConfig.cmake.in
